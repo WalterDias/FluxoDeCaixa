@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluxoDeCaixa.API", "src\API\FluxoDeCaixa.API.csproj", "{B2F8FDAF-14BE-4721-9BC5-CC573DE57417}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CBC93519-BA30-4107-9065-B17169577DB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3C426F1A-2B52-407B-B76E-FB1F7936D532}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2F8FDAF-14BE-4721-9BC5-CC573DE57417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F8FDAF-14BE-4721-9BC5-CC573DE57417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F8FDAF-14BE-4721-9BC5-CC573DE57417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F8FDAF-14BE-4721-9BC5-CC573DE57417}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B2F8FDAF-14BE-4721-9BC5-CC573DE57417} = {CBC93519-BA30-4107-9065-B17169577DB9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B55127F6-D1D3-491F-B97A-C998B402B026}
+	EndGlobalSection
+EndGlobal
