@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+#Drawio bkp files - Adicionado por Walter Dias
+*.drawio.bkp

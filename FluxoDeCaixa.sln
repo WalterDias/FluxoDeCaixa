@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3C426F1A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluxoDeCaixa.Core", "src\Core\FluxoDeCaixa.Core.csproj", "{993910FD-3FF7-4B0B-96E9-5011CC451174}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{40FBF41F-CBF5-41E1-AD4A-5AB492520DF5}"
+	ProjectSection(SolutionItems) = preProject
+		docs\c4.drawio = docs\c4.drawio
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
