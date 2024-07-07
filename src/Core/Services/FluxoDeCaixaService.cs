@@ -52,7 +52,7 @@ public class FluxoDeCaixaService : IFluxoDeCaixaService
                 .Select(g => new { Tipo = g.Key, Total = g.Sum(t => t.Valor) })
                 .ToDictionaryAsync(g => g.Tipo, g => g.Total);
 
-        var saldoFinal = saldo.GetValueOrDefault(TipoLancamento.Credito, 0) - saldo.GetValueOrDefault(TipoLancamento.Debito, 0);
+        var saldoFinal = saldo.GetValueOrDefault(TipoLancamento.Credito, 0) + saldo.GetValueOrDefault(TipoLancamento.Debito, 0);
 
         return saldoFinal;
     }
