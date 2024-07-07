@@ -1,0 +1,6 @@
+# @FluxoDeCaixa.API_HostAddress = http://localhost:5213
+
+# GET {{FluxoDeCaixa.API_HostAddress}}/weatherforecast/
+# Accept: application/json
+
+# ###
