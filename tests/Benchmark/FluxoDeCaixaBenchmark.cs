@@ -45,7 +45,7 @@ public class FluxoDeCaixaBenchmark
         await _service.RealizarDebitoAsync(transacao);
     }
 
-    [Benchmark]
+    [Benchmark()]
     public async Task ObterSaldoBenchmark()
     {
         await _service.ObterSaldoAsync();
