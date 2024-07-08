@@ -38,6 +38,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Adicionado para fins educativos
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapearRotasServicoFluxoDeCaixa();
 
 app.UseHttpsRedirection();

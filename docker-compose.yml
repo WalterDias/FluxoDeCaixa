@@ -1,0 +1,30 @@
+﻿services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    environment:
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    networks:
+      - fluxo_de_caixa_network
+
+  app:
+    build:
+      context: .
+      dockerfile: src/API/Dockerfile
+    container_name: fluxo_de_caixa_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FluxoDeCaixa;User Id=sa;Password=YourStrong@Passw0rd;Encrypt=True;TrustServerCertificate=True;
+    ports:
+      - "5002:8080"
+    depends_on:
+      - sqlserver
+    networks:
+      - fluxo_de_caixa_network
+
+networks:
+  fluxo_de_caixa_network:
+    driver: bridge

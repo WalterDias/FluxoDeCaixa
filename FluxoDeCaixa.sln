@@ -21,9 +21,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0D64C5A7-1
 		docs\c4.drawio = docs\c4.drawio
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluxoDeCaixa.Testes.Unidade", "tests\Unidade\FluxoDeCaixa.Testes.Unidade.csproj", "{09EBDA32-815B-4CF2-9E5B-6103C50C1BE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluxoDeCaixa.Testes.Unidade", "tests\Unidade\FluxoDeCaixa.Testes.Unidade.csproj", "{09EBDA32-815B-4CF2-9E5B-6103C50C1BE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluxoDeCaixa.Testes.Benchmark", "tests\Benchmark\FluxoDeCaixa.Testes.Benchmark.csproj", "{06691166-0C02-463D-80BC-40B54DC5AD5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluxoDeCaixa.Testes.Benchmark", "tests\Benchmark\FluxoDeCaixa.Testes.Benchmark.csproj", "{06691166-0C02-463D-80BC-40B54DC5AD5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4457CD1C-8ED9-431A-AA4E-FEAD7F3878A0}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

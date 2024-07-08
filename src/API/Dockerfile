@@ -9,17 +9,16 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/API/FluxoDeCaixa.API/FluxoDeCaixa.API.csproj", "src/API/FluxoDeCaixa.API/"]
-RUN dotnet restore "./src/API/FluxoDeCaixa.API/FluxoDeCaixa.API.csproj"
+COPY ["src/API/FluxoDeCaixa.API.csproj", "src/API/"]
+RUN dotnet restore "./src/API/FluxoDeCaixa.API.csproj"
 COPY . .
-WORKDIR "/src/src/API/FluxoDeCaixa.API"
-RUN dotnet build "./FluxoDeCaixa.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./src/API/FluxoDeCaixa.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./FluxoDeCaixa.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./src/API/FluxoDeCaixa.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FluxoDeCaixa.API.dll"]
+ENTRYPOINT ["dotnet", "FluxoDeCaixa.API.dll"]	

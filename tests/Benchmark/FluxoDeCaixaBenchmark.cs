@@ -3,8 +3,12 @@ using BenchmarkDotNet.Attributes;
 using FluxoDeCaixa.Core.DataBase;
 using FluxoDeCaixa.Core.Services;
 using Microsoft.EntityFrameworkCore;
+using BenchmarkDotNet.Engines;
+using System.Reflection;
 
 [MemoryDiagnoser(true)]
+[SimpleJob(RunStrategy.ColdStart, warmupCount: 100, iterationCount: 100, invocationCount: 100)]
+[MinColumn, MaxColumn, MeanColumn, MedianColumn]
 public class FluxoDeCaixaBenchmark
 {
     private FluxoDeCaixaContext _context;
