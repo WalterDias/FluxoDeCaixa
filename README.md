@@ -34,3 +34,6 @@ Este projeto é uma aplicação de "Fluxo de Caixa" desenvolvida em .NET Core. A
 ### Obs.: Sobre o banco de dados 
 Caso queira debugar a aplicação não esqueça de modificar a connection string ou utilize a conections string criada pelo docker compose
 
+Atenção durante a utilização via swagger:
+
+
