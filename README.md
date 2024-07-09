@@ -27,6 +27,10 @@ Este projeto é uma aplicação de "Fluxo de Caixa" desenvolvida em .NET Core. A
    ```bash
    docker-compose up --build
 
+3. Para executar a aplicação utilize o endereço:
+   ```bash
+   http://localhost:5002/swagger/index.html
+
 ### Obs.: Sobre o banco de dados 
 Caso queira debugar a aplicação não esqueça de modificar a connection string ou utilize a conections string criada pelo docker compose
 
