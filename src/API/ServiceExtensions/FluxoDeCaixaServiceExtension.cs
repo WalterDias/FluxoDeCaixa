@@ -8,7 +8,7 @@ public static class FluxoDeCaixaServiceExtension
 {
     public static void MapearRotasServicoFluxoDeCaixa(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/realizarcredito", async (LancamenetoFinanceiro transacao, IFluxoDeCaixaService service) =>
+        app.MapPost("/caixa/creditar", async (LancamenetoFinanceiro transacao, IFluxoDeCaixaService service) =>
         {
             try
             {
@@ -26,7 +26,7 @@ public static class FluxoDeCaixaServiceExtension
             }
         });
 
-        app.MapPost("/realizardebito", async (LancamenetoFinanceiro transacao, IFluxoDeCaixaService service) =>
+        app.MapPost("/caixa/debitar", async (LancamenetoFinanceiro transacao, IFluxoDeCaixaService service) =>
         {
             try
             {
@@ -44,7 +44,7 @@ public static class FluxoDeCaixaServiceExtension
             }
         });
 
-        app.MapGet("/obtersaldo", async (IFluxoDeCaixaService service) =>
+        app.MapGet("/caixa/saldo", async (IFluxoDeCaixaService service) =>
         {
             try
             {

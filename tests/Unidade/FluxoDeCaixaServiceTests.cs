@@ -1,10 +1,7 @@
-using Azure.Core;
 using FluxoDeCaixa.Core.DataBase;
 using FluxoDeCaixa.Core.Model;
 using FluxoDeCaixa.Core.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-using System.Security.Authentication;
 
 public class FluxoDeCaixaServiceTests
 {

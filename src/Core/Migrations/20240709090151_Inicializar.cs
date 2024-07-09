@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FluxoDeCaixa.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Inicializar : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,11 @@ namespace FluxoDeCaixa.Core.Migrations
                 {
                     table.PrimaryKey("PK_LancamenetoFinanceiros", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LancamenetoFinanceiros_Data",
+                table: "LancamenetoFinanceiros",
+                column: "Data");
         }
 
         /// <inheritdoc />

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FluxoDeCaixa.Core.Migrations
 {
     [DbContext(typeof(FluxoDeCaixaContext))]
-    [Migration("20240706224901_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240709090151_Inicializar")]
+    partial class Inicializar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,8 @@ namespace FluxoDeCaixa.Core.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Data");
 
                     b.ToTable("LancamenetoFinanceiros");
                 });

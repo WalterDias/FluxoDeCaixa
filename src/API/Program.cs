@@ -16,10 +16,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IFluxoDeCaixaService, FluxoDeCaixaService>();
+builder.Services.AddScoped<IRelatorioService, RelatorioService>();
 
 var app = builder.Build();
 
-//Deixei essa parte aqui so para efeito demostrativo mas o comando da criação da database já deve ter sido realizado pelo docker compose
+//Deixei essa parte aqui so para efeito demostrativo mas o comando da criação da database já deve ter sido realizado pelo docker compose,
+// Se quiser rodar localmente para debugar não esqueça de apotar para o seu banco de dados
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<FluxoDeCaixaContext>();
@@ -43,6 +45,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.MapearRotasServicoFluxoDeCaixa();
+app.MapearRotasServicoRelatorio();
 
 app.UseHttpsRedirection();
 
