@@ -2,18 +2,6 @@
 
 Este projeto é uma aplicação de "Fluxo de Caixa" desenvolvida em .NET Core. A aplicação permite realizar operações de crédito e débito, além de consultar o saldo atual.
 
-## Diagramas de Arquitetura
-### Diagrama de contexto
-![C4 Diagrama de Contexto](https://github.com/WalterDias/FluxoDeCaixa/blob/main/docs/c4.contexto.png?raw=true)
-
-### Diagrama de container
-![C4 Diagrama de Container](https://github.com/WalterDias/FluxoDeCaixa/blob/main/docs/c4.container.png?raw=true)
-
-### Diagrama de componente
-![C4 Diagrama de Componente](https://github.com/WalterDias/FluxoDeCaixa/blob/main/docs/c4.componentes.png?raw=true)
-
-
-
 ## Estrutura do Projeto
 
 - **src/API**: Contém a API principal da aplicação.
@@ -49,3 +37,12 @@ Caso queira debugar a aplicação não esqueça de modificar a connection string
 Atenção durante a utilização via swagger:
 
 
+## Diagramas de Arquitetura
+### Diagrama de contexto
+![C4 Diagrama de Contexto](https://github.com/WalterDias/FluxoDeCaixa/blob/main/docs/c4.contexto.png?raw=true)
+
+### Diagrama de container
+![C4 Diagrama de Container](https://github.com/WalterDias/FluxoDeCaixa/blob/main/docs/c4.container.png?raw=true)
+
+### Diagrama de componente
+![C4 Diagrama de Componente](https://github.com/WalterDias/FluxoDeCaixa/blob/main/docs/c4.componentes.png?raw=true)
