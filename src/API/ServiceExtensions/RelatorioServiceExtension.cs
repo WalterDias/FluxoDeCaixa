@@ -29,7 +29,7 @@ public static class RelatorioServiceExtension
         {
             return Results.BadRequest(ex.Message);
         }
-        catch (Exception ex)
+        catch
         {
             // logar o erro interno com um APM
             return Results.StatusCode(500);

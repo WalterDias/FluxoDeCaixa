@@ -11,8 +11,8 @@ using System.Reflection;
 [MinColumn, MaxColumn, MeanColumn, MedianColumn]
 public class FluxoDeCaixaBenchmark
 {
-    private FluxoDeCaixaContext _context;
-    private FluxoDeCaixaService _service;
+    private FluxoDeCaixaContext? _context;
+    private FluxoDeCaixaService? _service;
 
     [GlobalSetup]
     public void Setup()
@@ -34,7 +34,7 @@ public class FluxoDeCaixaBenchmark
             Valor = 100m
         };
 
-        await _service.RealizarCreditoAsync(transacao);
+        await _service!.RealizarCreditoAsync(transacao);
     }
 
     [Benchmark]
@@ -46,12 +46,12 @@ public class FluxoDeCaixaBenchmark
             Valor = -50m
         };
 
-        await _service.RealizarDebitoAsync(transacao);
+        await _service!.RealizarDebitoAsync(transacao);
     }
 
     [Benchmark()]
     public async Task ObterSaldoBenchmark()
     {
-        await _service.ObterSaldoAsync();
+        await _service!.ObterSaldoAsync();
     }
 }
