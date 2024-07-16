@@ -6,6 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FluxoDeCaixa.Core.Services;
 
+/// <summary>
+/// O serviço de relatorio foi implementando utilizando Exception como fluxo padrão
+/// O motivo de se ter 3 implementaçãoe é poder ter comportamentos em um futuro dependendo da necessidade ex:
+/// ExtratoDia - Busca direto do cache da memoria do servidor
+/// ExtratoUltimos30Dias - busca do banco transacional
+/// ListarLancamentos - buscaria do banco DW
+/// </summary>
 public class RelatorioService : IRelatorioService
 {
     private readonly FluxoDeCaixaContext _context;
