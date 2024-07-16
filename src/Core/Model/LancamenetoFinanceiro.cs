@@ -16,7 +16,7 @@ public record LancamenetoFinanceiro
 
     public Guid Id { get; set; }
 
-    public DateTime Data { get; set; }
+    public DateTime? Data { get; set; }
 
     public TipoLancamento Tipo { get; set; }
 
@@ -27,7 +27,7 @@ public record LancamenetoFinanceiroView
 {
     public Guid Id { get; set; }
 
-    public DateTime Data { get; set; }
+    public DateTime? Data { get; set; }
 
     public TipoLancamento Tipo { get; set; }
 

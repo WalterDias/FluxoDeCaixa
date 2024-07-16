@@ -1,10 +1,11 @@
-﻿using FluxoDeCaixa.Core.Model;
+﻿using FluxoDeCaixa.Core.Framework;
+using FluxoDeCaixa.Core.Model;
 
 namespace FluxoDeCaixa.Core.Interfaces;
 
 public interface IFluxoDeCaixaService
 {
-    Task<LancamenetoFinanceiro> RealizarCreditoAsync(LancamenetoFinanceiro transacao);
-    Task<LancamenetoFinanceiro> RealizarDebitoAsync(LancamenetoFinanceiro transacao);
-    Task<decimal> ObterSaldoAsync();
+    Task<Result<LancamenetoFinanceiro>> RealizarCreditoAsync(LancamenetoFinanceiro transacao);
+    Task<Result<LancamenetoFinanceiro>> RealizarDebitoAsync(LancamenetoFinanceiro transacao);
+    Task<Result<decimal>> ObterSaldoAsync();
 }

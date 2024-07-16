@@ -1,4 +1,6 @@
+using FluxoDeCaixa.Core.BusinessErros;
 using FluxoDeCaixa.Core.DataBase;
+using FluxoDeCaixa.Core.Framework;
 using FluxoDeCaixa.Core.Model;
 using FluxoDeCaixa.Core.Services;
 using Microsoft.EntityFrameworkCore;
@@ -24,40 +26,45 @@ public class FluxoDeCaixaServiceTests
         var transacao = new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Credito,
-            Valor = 100m
+            Valor = 100m,
+            Data = DateTime.Now
         };
 
         var result = await _service.RealizarCreditoAsync(transacao);
 
-        Assert.NotNull(result);
-        Assert.Equal(transacao.Tipo, result.Tipo);
-        Assert.Equal(transacao.Valor, result.Valor);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
-    public void RealizarCreditoAsync_NaoDeveAdicionarPorProblemaTipoLancamento()
+    public async Task RealizarCreditoAsync_NaoDeveAdicionarPorProblemaTipoLancamento()
     {
         var transacao = new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Debito,
-            Valor = -50m
+            Valor = -50m,
+            Data = DateTime.Now
         };
 
-        var exception = Assert.ThrowsAsync<ArgumentException>(() => _service.RealizarCreditoAsync(transacao));
-        Assert.Equal("Tipo de transação inválido. Use 'Credito' para esta operação.", exception?.Result.Message);
+        var result = await _service.RealizarCreditoAsync(transacao);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(FluxoDeCaixaErros.TipoLancamentoCreditoInvalido, result.Error);
     }
 
     [Fact]
-    public void RealizarCreditoAsync_NaoDeveAdicionarPorProblemaValor()
+    public async Task RealizarCreditoAsync_NaoDeveAdicionarPorProblemaValor()
     {
         var transacao = new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Credito,
-            Valor = -50m
+            Valor = -50m,
+            Data = DateTime.Now
         };
 
-        var exception = Assert.ThrowsAsync<ArgumentException>(() => _service.RealizarCreditoAsync(transacao));
-        Assert.Equal("Valor da operação inválido", exception?.Result.Message);
+        var result = await _service.RealizarCreditoAsync(transacao);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(FluxoDeCaixaErros.ValorDaOperacaoInvalido, result.Error);
     }
 
     [Fact]
@@ -66,40 +73,61 @@ public class FluxoDeCaixaServiceTests
         var transacao = new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Debito,
-            Valor = -50m
+            Valor = -50m,
+            Data = DateTime.Now
         };
 
         var result = await _service.RealizarDebitoAsync(transacao);
 
-        Assert.NotNull(result);
-        Assert.Equal(transacao.Tipo, result.Tipo);
-        Assert.Equal(transacao.Valor, result.Valor);
+        Assert.True(result.IsSuccess);
     }
 
     [Fact]
-    public void RealizarDebitoAsync_NaoDeveAdicionarPorProblemaTipoLancamento()
+    public async Task RealizarDebitoAsync_NaoDeveAdicionarPorProblemaTipoLancamento()
     {
         var transacao = new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Credito,
-            Valor = -50m
+            Valor = -50m,
+            Data = DateTime.Now
         };
 
-        var exception = Assert.ThrowsAsync<ArgumentException>(() => _service.RealizarDebitoAsync(transacao));
-        Assert.Equal("Tipo de transação inválido. Use 'Debito' para esta operação.", exception?.Result.Message);
+        var result = await _service.RealizarDebitoAsync(transacao);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(FluxoDeCaixaErros.TipoLancamentoCreditoInvalido, result.Error);
     }
 
     [Fact]
-    public void RealizarDebitoAsync_NaoDeveAdicionarPorProblemaValor()
+    public async Task RealizarDebitoAsync_NaoDeveAdicionarPorProblemaValor()
     {
         var transacao = new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Debito,
-            Valor = 50m
+            Valor = 50m,
+            Data = DateTime.Now
         };
 
-        var exception = Assert.ThrowsAsync<ArgumentException>(() => _service.RealizarDebitoAsync(transacao));
-        Assert.Equal("Valor da operação inválido", exception?.Result.Message);
+        var result = await _service.RealizarDebitoAsync(transacao);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(FluxoDeCaixaErros.ValorDaOperacaoInvalido, result.Error);
+    }
+
+    [Fact]
+    public async Task RealizarDebitoAsync_NaoDeveAdicionarPorProblemaData()
+    {
+        var transacao = new LancamenetoFinanceiro
+        {
+            Tipo = TipoLancamento.Debito,
+            Valor = 50m,
+            Data = null
+        };
+
+        var result = await _service.RealizarDebitoAsync(transacao);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(FluxoDeCaixaErros.DataDaOperacaoInvalido, result.Error);
     }
 
     [Fact]
@@ -108,19 +136,22 @@ public class FluxoDeCaixaServiceTests
         var credito = _context.LancamenetoFinanceiros.Add(new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Credito,
-            Valor = 200m
+            Valor = 200m,
+            Data = DateTime.Now
         });
 
         var debito = _context.LancamenetoFinanceiros.Add(new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Debito,
-            Valor = -50m
+            Valor = -50m,
+            Data = DateTime.Now.AddMinutes(2)
         });
 
         await _context.SaveChangesAsync();
 
         var saldo = await _service.ObterSaldoAsync();
 
-        Assert.Equal(150m, saldo);
+        Assert.True(saldo.IsSuccess);
+        Assert.Equal(150m, saldo.Value);
     }
 }

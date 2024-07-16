@@ -1,4 +1,5 @@
 ﻿using FluxoDeCaixa.Core.DataBase;
+using FluxoDeCaixa.Core.Framework;
 using FluxoDeCaixa.Core.Interfaces;
 using FluxoDeCaixa.Core.Model;
 using Microsoft.EntityFrameworkCore;
@@ -14,38 +15,41 @@ public class FluxoDeCaixaService : IFluxoDeCaixaService
         _context = context;
     }
 
-    public async Task<LancamenetoFinanceiro> RealizarCreditoAsync(LancamenetoFinanceiro transacao)
+    public async Task<Result<LancamenetoFinanceiro>> RealizarCreditoAsync(LancamenetoFinanceiro transacao)
     {
         if (transacao.Tipo != TipoLancamento.Credito)
-            throw new ArgumentException("Tipo de transação inválido. Use 'Credito' para esta operação.");
+            return Result.Failure<LancamenetoFinanceiro>(BusinessErros.FluxoDeCaixaErros.TipoLancamentoCreditoInvalido);
 
         if (transacao.Valor <= 0)
-            throw new ArgumentException("Valor da operação inválido");
+            return Result.Failure<LancamenetoFinanceiro>(BusinessErros.FluxoDeCaixaErros.ValorDaOperacaoInvalido);
 
         return await RealizarTransacaoAsync(transacao);
     }
 
-    public async Task<LancamenetoFinanceiro> RealizarDebitoAsync(LancamenetoFinanceiro transacao)
+    public async Task<Result<LancamenetoFinanceiro>> RealizarDebitoAsync(LancamenetoFinanceiro transacao)
     {
         if (transacao.Tipo != TipoLancamento.Debito)
-            throw new ArgumentException("Tipo de transação inválido. Use 'Debito' para esta operação.");
+            return Result.Failure<LancamenetoFinanceiro>(BusinessErros.FluxoDeCaixaErros.TipoLancamentoCreditoInvalido);
 
         if (transacao.Valor >= 0)
-            throw new ArgumentException("Valor da operação inválido");
+            return Result.Failure<LancamenetoFinanceiro>(BusinessErros.FluxoDeCaixaErros.ValorDaOperacaoInvalido);
 
         return await RealizarTransacaoAsync(transacao);
     }
 
-    private async Task<LancamenetoFinanceiro> RealizarTransacaoAsync(LancamenetoFinanceiro transacao)
+    private async Task<Result<LancamenetoFinanceiro>> RealizarTransacaoAsync(LancamenetoFinanceiro transacao)
     {
+        if (transacao.Data is null)
+            return Result.Failure<LancamenetoFinanceiro>(BusinessErros.FluxoDeCaixaErros.DataDaOperacaoInvalido);
+
         _context.LancamenetoFinanceiros.Add(transacao);
 
         await _context.SaveChangesAsync();
 
-        return transacao;
+        return Result.Success(transacao);
     }
 
-    public async Task<decimal> ObterSaldoAsync()
+    public async Task<Result<decimal>> ObterSaldoAsync()
     {
         var saldo = await _context.LancamenetoFinanceiros
                 .GroupBy(t => t.Tipo)
@@ -54,6 +58,6 @@ public class FluxoDeCaixaService : IFluxoDeCaixaService
 
         var saldoFinal = saldo.GetValueOrDefault(TipoLancamento.Credito, 0) + saldo.GetValueOrDefault(TipoLancamento.Debito, 0);
 
-        return saldoFinal;
-    }
+        return Result.Success(saldoFinal);
+    }    
 }
