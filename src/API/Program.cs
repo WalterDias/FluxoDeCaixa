@@ -3,6 +3,8 @@ using FluxoDeCaixa.Core.Services;
 using FluxoDeCaixa.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using FluxoDeCaixa.API.ServicesExtension;
+using Microsoft.AspNetCore.Diagnostics;
+using static System.Net.Mime.MediaTypeNames;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +29,28 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<FluxoDeCaixaContext>();
     db.Database.Migrate();
 }
+
+app.UseExceptionHandler(exceptionHandlerApp =>
+{
+    exceptionHandlerApp.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+        context.Response.ContentType = Text.Plain;
+
+        await context.Response.WriteAsync("Um erro ocorreu no servidor.");
+
+        var exceptionHandlerPathFeature =
+            context.Features.Get<IExceptionHandlerPathFeature>();
+
+        var innerDetails = exceptionHandlerPathFeature?.Error?.InnerException;
+
+        //So para ver o detalhe do erro.
+        if (innerDetails is not null)
+            await context.Response.WriteAsync($" {innerDetails.Message}");
+        
+    });
+});
 
 // configure exception middleware
 app.UseStatusCodePages(async statusCodeContext

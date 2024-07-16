@@ -55,3 +55,14 @@ public sealed record Error(string Code, string Description)
 
     public static readonly Error NullValue = new("400", "O valor é nulo");
 }
+
+public static class ResultExtensions
+{
+    public static T Match<T>(
+        this Result result,
+        Func<T> onSuccess,
+        Func<Error, T> onFailure)
+    {
+        return result.IsSuccess ? onSuccess() : onFailure(result.Error);
+    }
+}

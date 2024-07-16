@@ -11,5 +11,5 @@ public static class FluxoDeCaixaErros
 
     public static Error ValorDaOperacaoInvalido { get => new Error("400.3", "Valor da operação inválido"); }
 
-    public static Error DataDaOperacaoInvalido { get => new Error("400.3", "Valor da operação inválido"); }
+    public static Error DataDaOperacaoInvalido { get => new Error("400.4", "A data da operação inválido"); }
 }

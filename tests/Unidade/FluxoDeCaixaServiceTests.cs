@@ -5,6 +5,8 @@ using FluxoDeCaixa.Core.Model;
 using FluxoDeCaixa.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
+namespace FluxoDeCaixa.Testes.Unidade;
+
 public class FluxoDeCaixaServiceTests
 {
     private readonly FluxoDeCaixaContext _context;
@@ -130,9 +132,12 @@ public class FluxoDeCaixaServiceTests
         Assert.Equal(FluxoDeCaixaErros.DataDaOperacaoInvalido, result.Error);
     }
 
-    [Fact]
+    [Fact]    
     public async Task ObterSaldoAsync_DeveRetornarSaldoCorreto()
     {
+        //reseta todos os dados da tabela
+        _context.Database.EnsureDeleted();
+
         var credito = _context.LancamenetoFinanceiros.Add(new LancamenetoFinanceiro
         {
             Tipo = TipoLancamento.Credito,
